@@ -14,7 +14,8 @@ const defValue = "";
       @click.prevent="store.createTask(defValue)"
       type="submit"
       class="addInput__btn"
-      >+</custom-button
     >
+      +
+    </custom-button>
   </form>
 </template>

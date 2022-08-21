@@ -42,7 +42,7 @@ const listOfClosedTasks = computed(() => store.listOfClosedTasks);
   background: linear-gradient(rgba(219, 226, 239, 1), rgb(2, 22, 58));
   -webkit-transition: width 2s, height 2s, background-color 2s,
     -webkit-transform 2s;
-  transition: width 1.5s, height 1.5s, background-color 1s, transform 1.5s;
+  transition: width 1s, height 1s, background-color 1s, transform 1s;
 }
 .folder:hover {
   opacity: 0.5;

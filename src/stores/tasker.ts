@@ -97,6 +97,16 @@ export const useTaskerStore = defineStore({
         }
       }
       this.$state.listOfTasks.push(currEl[0]);
+    },
+    addTaskDiscr(id:string,val:string){
+      const arr = this.$state.listOfTasks;
+      var i:number;
+      for (i=0;i<arr.length ; i++ ){
+        if(arr[i].id === id){
+          arr[i].name ="task: " + val;
+             break;
+        }
+      }
     }
   }
 })

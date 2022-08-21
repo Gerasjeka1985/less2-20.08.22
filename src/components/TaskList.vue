@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useTaskerStore } from "@/stores/tasker";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import TaskItem from "./TaskItem.vue";
 import CustomButton from "@/customComponents/CustomBtn.vue";
+import customInputDiscr from "@/customComponents/customInputDiscr.vue";
 
 const store = useTaskerStore();
 await store.getTasks();
 const listOfTasks = computed(() => store.listOfTasks);
+const discrVal = "";
 
 //анимация движения блока
 
@@ -46,13 +48,19 @@ const listOfTasks = computed(() => store.listOfTasks);
     >
       <div class="task-discr">
         {{ task.name }}
+
+        <custom-input-discr
+          :key="task.id"
+          @change="store.addTaskDiscr(task.id, discrVal)"
+          v-model="discrVal"
+        ></custom-input-discr>
       </div>
-      <custom-button @mouseup="store.moveElem(task.id)" class="Colapse-task">
+      <custom-button @click="store.moveElem(task.id)" class="Colapse-task">
         Colapse
       </custom-button>
-      <custom-button class="btn-del" @click="store.delTask(task.id)"
-        >-</custom-button
-      >
+      <custom-button class="btn-del" @click="store.delTask(task.id)">
+        -
+      </custom-button>
     </TaskItem>
     <div v-if="listOfTasks.length <= 0" class="no-tasks">
       Steel no tasks here
@@ -89,6 +97,7 @@ const listOfTasks = computed(() => store.listOfTasks);
 }
 
 .task-discr {
+  position: relative;
   width: 340px;
   height: 20px;
 }
@@ -98,7 +107,7 @@ const listOfTasks = computed(() => store.listOfTasks);
 }
 
 .Colapse-task {
-  font-size: 11px;
+  font-size: 14px;
   cursor: pointer;
   background: #3f72af;
   color: aliceblue;
@@ -108,5 +117,17 @@ const listOfTasks = computed(() => store.listOfTasks);
 }
 .Colapse-task .active {
   display: none;
+}
+
+.discr-input {
+  position: absolute;
+  right: 5px;
+  font-size: 11px;
+  cursor: pointer;
+  background: #dbe2ef;
+  color: rgb(2, 14, 23);
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid #284a73;
 }
 </style>
