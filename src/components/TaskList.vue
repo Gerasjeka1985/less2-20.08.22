@@ -47,11 +47,7 @@ const listOfTasks = computed(() => store.listOfTasks);
       <div class="task-discr">
         {{ task.name }}
       </div>
-      <custom-button
-        :key="task.id"
-        @mouseup="store.moveElem(task.id)"
-        class="Colapse-task"
-      >
+      <custom-button @mouseup="store.moveElem(task.id)" class="Colapse-task">
         Colapse
       </custom-button>
       <custom-button class="btn-del" @click="store.delTask(task.id)"

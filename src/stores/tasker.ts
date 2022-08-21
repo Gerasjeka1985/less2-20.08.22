@@ -71,18 +71,32 @@ export const useTaskerStore = defineStore({
     async toggle(id: string){
       await axios.patch(`http://127.0.0.1:8080/tasks/${id}`)
     },
+    //Можно ли сделать оптимальнее?
     moveElem(id:string){
-      console.log("done");
-      const currEl = this.$state.listOfTasks.filter(task => task.id == id);
-      this.$state.listOfTasks.shift(currEl[0])
-      this.$state.listOfClosedTasks.push(currEl[0])
+      const arr = this.$state.listOfTasks;
+      const currEl = arr.filter(task => task.id == id);
+      var i:number;
+      for (i=0;i<arr.length ; i++ ){
+        if(arr[i].id === id){
+          this.$state.listOfTasks.splice(i,1);
+             break;
+        }
+      }
+      this.$state.listOfClosedTasks.push(currEl[0]);
     },
+
+
     backToList(id:string){
-      const currEl = this.$state.listOfTasks.filter(task => task.id == id);
-      console.log(currEl[0])
-      this.$state.listOfClosedTasks.filter(task => task == currEl[0])
-      this.$state.listOfTasks.push(currEl[0])
-      this.getState
+      const arr = this.$state.listOfClosedTasks;
+      const currEl = arr.filter(task => task.id == id);
+      var i:number;
+      for (i=0;i<arr.length ; i++ ){
+        if(arr[i].id === id){
+          this.$state.listOfClosedTasks.splice(i,1);
+             break;
+        }
+      }
+      this.$state.listOfTasks.push(currEl[0]);
     }
   }
 })
