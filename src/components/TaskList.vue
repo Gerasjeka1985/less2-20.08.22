@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { useTaskerStore } from "@/stores/tasker";
-import { computed, ref } from "vue";
 import TaskItem from "./TaskItem.vue";
 import CustomButton from "@/customComponents/CustomBtn.vue";
 import customInputDiscr from "@/customComponents/customInputDiscr.vue";
@@ -44,14 +44,15 @@ const discrVal = "";
       v-for="task in listOfTasks"
       :key="task.id"
       v-model="task.is_finished"
-      @click="store.toggle(task.id)"
+      @change="store.toggle(task.id)"
     >
       <div class="task-discr">
-        {{ task.name }}
-
+        <div class="task-text">
+          {{ task.name }}
+        </div>
         <custom-input-discr
           :key="task.id"
-          @change="store.addTaskDiscr(task.id, discrVal)"
+          @click="store.addTaskDiscr(task.id, discrVal)"
           v-model="discrVal"
         ></custom-input-discr>
       </div>
@@ -98,6 +99,9 @@ const discrVal = "";
 
 .task-discr {
   position: relative;
+  display: flex;
+  justify-content: start;
+  align-items: center;
   width: 340px;
   height: 20px;
 }
@@ -120,6 +124,8 @@ const discrVal = "";
 }
 
 .discr-input {
+  width: 90px;
+  height: 12px;
   position: absolute;
   right: 5px;
   font-size: 11px;
@@ -129,5 +135,10 @@ const discrVal = "";
   padding: 2px;
   border-radius: 6px;
   border: 1px solid #284a73;
+}
+
+.task-text {
+  width: 200px;
+  min-height: 20px;
 }
 </style>
